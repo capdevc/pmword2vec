@@ -61,8 +61,6 @@ object PMWord2Vec {
   }
 
   def run(config: PMWord2VecConfig): Unit = {
-    val pmids = Source.fromFile(config.abstractsFile).getLines map { _.toInt } toSet
-
     val sparkConf = new SparkConf()
       .setAppName("PMWord2Vec")
       .setMaster(config.sparkMaster)
