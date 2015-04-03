@@ -64,7 +64,6 @@ object PMWord2Vec {
     val sparkConf = new SparkConf()
       .setAppName("PMWord2Vec")
       .setMaster(config.sparkMaster)
-      .set("spark.serializer", "org.apache.spark.serializer.KyroSerializer")
 
     val sc = new SparkContext(sparkConf)
 
