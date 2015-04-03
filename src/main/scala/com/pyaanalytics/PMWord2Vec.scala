@@ -23,12 +23,14 @@ import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 
 import scopt.OptionParser
+import java.io.{ObjectOutputStream, FileOutputStream}
 import scala.io.Source
 import scala.xml._
 
 object PMWord2Vec {
 
   case class PMWord2VecConfig(abstractsFile: String = "",
+                              modelFile: String = "",
                               sparkMaster: String = "local[64]")
 
   def main(args: Array[String]): Unit = {
@@ -37,6 +39,11 @@ object PMWord2Vec {
 
       arg[String]("abstractsFile") valueName("abstractsFile") action {
         (x, c) => c.copy(abstractsFile = x)
+      }
+
+
+      arg[String]("modelFile") valueName("modelFile") action {
+        (x, c) => c.copy(modelFile = x)
       }
 
       arg[String]("sparkMaster") valueName("sparkMaster") action {
@@ -70,6 +77,9 @@ object PMWord2Vec {
       .setVectorSize(800)
 
     val w2vModel = w2v.fit(lines)
+
+    val oStream = new ObjectOutputStream(new FileOutputStream(config.modelFile))
+    oStream.writeObject(w2vModel)
 
     val synonyms = w2vModel.findSynonyms("patient", 20)
 
