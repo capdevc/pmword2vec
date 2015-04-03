@@ -64,6 +64,7 @@ object PMWord2Vec {
     val sparkConf = new SparkConf()
       .setAppName("PMWord2Vec")
       .setMaster(config.sparkMaster)
+      .set("spark.executor.memory", "10g")
 
     val sc = new SparkContext(sparkConf)
 
