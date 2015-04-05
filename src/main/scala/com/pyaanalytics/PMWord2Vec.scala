@@ -73,6 +73,7 @@ object PMWord2Vec {
 
     val w2v = new Word2Vec()
       .setVectorSize(300)
+      .setMinCount(10)
 
     val w2vModel = w2v.fit(lines)
 
