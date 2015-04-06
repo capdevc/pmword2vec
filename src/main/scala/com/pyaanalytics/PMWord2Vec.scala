@@ -64,7 +64,6 @@ object PMWord2Vec {
     val sparkConf = new SparkConf()
       .setAppName("PMWord2Vec")
       .setMaster(config.sparkMaster)
-      .set("spark.executor.memory", "20g")
 
     val sc = new SparkContext(sparkConf)
 
@@ -72,7 +71,7 @@ object PMWord2Vec {
       .map(_.split("\\s+").toSeq)
 
     val w2v = new Word2Vec()
-      .setVectorSize(300)
+      .setVectorSize(400)
       .setMinCount(30)
 
     val w2vModel = w2v.fit(lines)
